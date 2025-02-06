@@ -31,11 +31,11 @@ function OfficeCard({ index, data, setOriginalData }) {
   const deleteHandle = async () => {
     try {
       setIsBeingProcessed(true);
-      const response = await customAxios.delete(`/office/Block/${data.OfficeId}`);
+      const response = await customAxios.delete(`/AcademicSession/Block/${data.AcademicId}`);
       if (response.status == 200) {
         // Remove the deleted data from originalData
         setOriginalData((prev) =>
-          prev.filter((item) => item.OfficeId !== data.OfficeId)
+          prev.filter((item) => item.SessionId !== data.SessionId)
         );
 
         handleModal();
@@ -60,12 +60,12 @@ function OfficeCard({ index, data, setOriginalData }) {
         // Update the originalData with the updated entry
         setOriginalData((prev) =>
           prev.map((item) =>
-            item.OfficeId === updatedData.OfficeId ? updatedData : item
+            item.AcademicId === updatedData.AcademicId ? updatedData : item
           )
         );
 
         handleEditModal();
-        showToast("Office Updated Successfully", "success");
+        showToast("Session Updated Successfully", "success");
       }
     } catch (error) {
       handleCatchError(error, navigate);
@@ -80,10 +80,10 @@ function OfficeCard({ index, data, setOriginalData }) {
       {/* Document Group Card */}
       <div className={`p-6 m-4 bg-white border rounded-lg shadow-md hover:shadow-lg transition-all duration-300 `}>
         <h3 className="text-2xl font-semibold text-gray-800">
-          {(`${index + 1}.   ${data?.OfficeName}`)}
+          {(`${index + 1}.   ${data?.SessionId}`)}
         </h3>
         <p className=" text-gray-600 mt-2 text-ellipsis break-words ">
-          <b>Office Address:</b> {`${data.OfficeAddress?.slice(0, 15) || "No description available"} ...`}
+          <b>:</b> {`${data.OfficeAddress?.slice(0, 15) || "No description available"} ...`}
         </p>
         <p className="text-gray-600 mt-2">
           <b>Office Email:</b> {data?.OfficeEmail}

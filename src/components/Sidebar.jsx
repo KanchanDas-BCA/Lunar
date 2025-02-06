@@ -64,6 +64,16 @@ const Sidebar = () => {
             <i className="bx bxs-building-house mr-2 text-2xl" />
             Office
           </NavLink>
+          <NavLink
+            to="/academicsession"
+            className={({ isActive }) =>
+              `flex items-center cursor-pointer py-4 transition-all duration-300 hover:translate-x-1 ${isActive ? "text-indigo-800 font-bold" : "text-gray-600"
+              }`
+            }
+          >
+            <i className="bx bxs-building-house mr-2 text-2xl" />
+            Academic
+          </NavLink>
 
           <NavLink
             to="/personCategory"

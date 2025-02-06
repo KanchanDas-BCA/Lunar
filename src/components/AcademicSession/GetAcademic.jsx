@@ -3,11 +3,13 @@ import customAxios from "../../utils/http";
 import Loader from "../../utils/Loader";
 import { Link, useNavigate } from "react-router-dom";
 import handleCatchError from "../../utils/handleCatchError";
-import OfficeTableRow from "./AcademicTableRow";
+import AcademicTableRow from "./AcademicTableRow";
 import OfficeCard from "./AcademicCard";
 import InsertOffice from "./InsertAcademic";
+import OfficeTableRow from "../office/OfficeTableRow";
 
-function GetOffice() {
+
+function GetAcademic() {
   const navigate = useNavigate();
 
   const [originalData, setOriginalData] = useState([]); // Store original data
@@ -29,7 +31,7 @@ function GetOffice() {
   const fetchActiveData = async () => {
     try {
       setIsLoading(true);
-      const response = await customAxios.get(`/Office/GetList`);
+      const response = await customAxios.get(`/AcademicSession/GetList`);
       const data = await response.data;
       console.log(data)
       setOriginalData(data);
@@ -45,7 +47,7 @@ function GetOffice() {
   const fetchBlockedData = async () => {
     try {
       setIsLoading(true);
-      const response = await customAxios.get(`/Office/GetList/true`);
+      const response = await customAxios.get(`/AcademicSession/GetList/true`);
       const data = await response.data;
       setOriginalData(data);
       setFilteredData(data.filter((item) => !item.IsActive));
@@ -72,7 +74,7 @@ function GetOffice() {
   };
 
   useEffect(() => {
-    document.title = "Office List";
+    document.title = "Academic List";
     fetchActiveData();
   }, []);
 
@@ -169,7 +171,7 @@ function GetOffice() {
           </div>
 
           <div className="text-3xl text-center">
-            {showBlocked ? "Blocked" : "Active"} Office List
+            {showBlocked ? "Blocked" : "Active"} Academic Session
           </div>
 
           <div className="flex justify-between items-center mt-4 mb-2 gap-4 flex-wrap w-full">
@@ -188,10 +190,16 @@ function GetOffice() {
               <option value="default" disabled>
                 --Filter by Column--
               </option>
-              <option value="OfficeName">Office Name</option>
-              <option value="OfficeAddress">Office Address</option>
-              <option value="OfficeEmail">Office Email</option>
-              <option value="OfficePhonePrimary">Phone Number</option>
+              <option value="SessionId">Id</option>
+              <option value="SessionName">Name</option>
+              <option value="SessionStartDate">StartDate</option>
+              <option value="SessionStartDateBs">StartDateBs</option>
+              <option value="SessionEndDate">EndDate</option> 
+              <option value="SessionEndDateBs">EndDateBs</option>
+              <option value="IsActive">Status</option>
+              <option value="IsCurrentSession">CurrentSession</option>
+              
+            
             </select>
             <select
               className="border p-2 rounded cursor-pointer"
@@ -207,11 +215,13 @@ function GetOffice() {
           <table className="min-w-full divide-y divide-gray-200 hidden min-[750px]:table">
             <thead>
               <tr>
-                <th className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">S.N</th>
-                <th className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Office Name</th>
-                <th className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Office Address</th>
-                <th className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Office Email</th>
-                <th className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Phone Number</th>
+                <th className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Id</th>
+                <th className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                <th className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">StartDate</th>
+                <th className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">StartDateBs</th>
+                <th className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">EndDate</th>
+                <th className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">EndDateBs</th>
+                <th className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">CurrentSession</th>
                 <th className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
                 <th className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
               </tr>
@@ -223,7 +233,7 @@ function GetOffice() {
                 </tr>
               ) : (
                 currentRows.map((data, index) => (
-                  <OfficeTableRow
+                  <AcademicTableRow
                     key={data.OfficeId}
                     index={indexOfFirstRow + index}
                     data={data}
@@ -292,4 +302,4 @@ function GetOffice() {
   );
 }
 
-export default GetOffice;
+export default GetAcademic;
