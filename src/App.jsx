@@ -69,7 +69,7 @@ function App() {
               <Route path='office' element={<GetOffice />}  />
               <Route path='person' element={<GetPerson />}  />
               <Route path='AcademicSession' element={<AcademicSession/>}/>
-
+              
               {/* For Setting */}
               <Route path='setting/'>
                 <Route index element={<Setting />} />

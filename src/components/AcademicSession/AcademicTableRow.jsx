@@ -4,8 +4,9 @@ import customAxios from '../../utils/http';
 import { showToast } from '../../utils/ReactToast';
 import handleCatchError from '../../utils/handleCatchError';
 import DeleteItem from '../DeleteItem';
-import UpdateOffice from './UpdateAcademic';
-import SeeAllOffice from './SeeAllAcademic';
+import SeeAllAcademic from './SeeAllAcademic';
+import UpdateAcademic from './UpdateAcademic';
+
 
 function AcademicTableRow({ index, data, setOriginalData }) {
   const navigate = useNavigate();
@@ -13,6 +14,7 @@ function AcademicTableRow({ index, data, setOriginalData }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [isSeeAllModalOpen, setSeeAllModalOpen] = useState(false);
+  const [selectDate, setSelectedDate] = useState(null);
 
   // Handle modal boxes
   const handleModal = () => {
@@ -31,11 +33,11 @@ function AcademicTableRow({ index, data, setOriginalData }) {
   const deleteHandle = async () => {
     try {
       setIsBeingProcessed(true);
-      const response = await customAxios.delete(`/Academic/Block/${data.AcademicId}`);
+      const response = await customAxios.delete(`/AcademicSession/Block/${data.SessionId}`);
       if (response.status == 200) {
         // Remove the deleted data from originalData
         setOriginalData((prev) =>
-          prev.filter((item) => item.AcademicId !== data.SessionId)
+          prev.filter((item) => item.SessionId !== data.SessionId)
         );
 
         handleModal();
@@ -53,14 +55,14 @@ function AcademicTableRow({ index, data, setOriginalData }) {
   const updateHandle = async (formData) => {
     try {
       setIsBeingProcessed(true);
-      const response = await customAxios.put('/academic/update', formData);
+      const response = await customAxios.put('/academicsession/update', formData);
       if (response.status == 200) {
         const updatedData = await response.data;
 
         // Update the originalData with the updated entry
         setOriginalData((prev) =>
           prev.map((item) =>
-            item.AcademicId === updatedData.SessionId ? updatedData : item
+            item.SessionId === updatedData.SessionId ? updatedData : item
           )
         );
 
@@ -77,7 +79,7 @@ function AcademicTableRow({ index, data, setOriginalData }) {
 
   return (
     <>
-      <tr>
+      <tr className={`${data.IsCurrentSession? 'bg-green-300 font-semibold' : 'bg-white-500/30' }`}>
         <td className="px-3 py-2 whitespace-nowrap">{index + 1}</td>
         <td className="px-3 py-2 text-ellipsis whitespace-nowrap">
           {data?.SessionName?.length > 15 ? (`${data?.SessionName.slice(0, 15)} ...`) : (data?.SessionName)}</td>
@@ -93,11 +95,9 @@ function AcademicTableRow({ index, data, setOriginalData }) {
         <td className="px-3 py-2 whitespace-nowrap">{data?.SessionEndDateBs}</td>
 
         <td className="px-3 py-2 whitespace-nowrap ">
-          <span className={`p-4 w-full inline-flex justify-end text-base leading-5 font-semibold rounded-full ${data.IsActive ? 'bg-green-100' : 'bg-red-200'} text-black`}>{data.IsActive ? "Active" : "Blocked"}</span>
+          <span className={`p-4 w-full inline-flex justify-center text-base leading-5 font-semibold rounded-full ${data.IsActive ? 'bg-green-100' : 'bg-red-200'} text-black`}>{data.IsActive ? "Active" : "Blocked"}</span>
         </td>
-        <td className="px-3 py-2 whitespace-nowrap">
-          {data?.IsCurrentSession}
-        </td>
+
         <td className="px-3 py-2 whitespace-nowrap">
           {
             data.IsActive && (
@@ -131,12 +131,12 @@ function AcademicTableRow({ index, data, setOriginalData }) {
         }
 
         {isEditModalOpen && <td>
-          <UpdateSession handleEditModal={handleEditModal} data={data} updateHandle={updateHandle} isBeingProcessed={isBeingProcessed} />
+          <UpdateAcademic handleEditModal={handleEditModal} data={data} updateHandle={updateHandle} isBeingProcessed={isBeingProcessed} />
         </td>
         }
 
         {isSeeAllModalOpen && <td>
-          <SeeAllSession index={index} handleSeeAllModal={handleSeeAllModal} data={data} />
+          <SeeAllAcademic index={index} handleSeeAllModal={handleSeeAllModal} data={data} />
         </td>
         }
       </tr>

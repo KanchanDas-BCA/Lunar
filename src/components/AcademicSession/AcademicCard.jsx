@@ -4,10 +4,9 @@ import customAxios from "../../utils/http";
 import { showToast } from "../../utils/ReactToast";
 import handleCatchError from "../../utils/handleCatchError";
 import DeleteItem from "../DeleteItem";
-import UpdateOffice from './UpdateAcademic';
-import SeeAllOffice from './SeeAllAcademic';
 
-function OfficeCard({ index, data, setOriginalData }) {
+
+function AcademicCard({ index, data, setOriginalData }) {
   const navigate = useNavigate();
   const [isBeingProcessed, setIsBeingProcessed] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -53,7 +52,7 @@ function OfficeCard({ index, data, setOriginalData }) {
   const updateHandle = async (formData) => {
     try {
       setIsBeingProcessed(true);
-      const response = await customAxios.put('/office/update', formData);
+      const response = await customAxios.put('/AcademicSession/Update', formData);
       if (response.status == 200) {
         const updatedData = await response.data;
 
@@ -139,14 +138,14 @@ function OfficeCard({ index, data, setOriginalData }) {
         <DeleteItem handleModal={handleModal} deleteHandle={deleteHandle} name={data?.OfficeName} isBeingProcessed={isBeingProcessed} />
       }
       {isEditModalOpen &&
-        <UpdateOffice handleEditModal={handleEditModal} data={data} updateHandle={updateHandle} isBeingProcessed={isBeingProcessed} />
+        <UpdateAcademic handleEditModal={handleEditModal} data={data} updateHandle={updateHandle} isBeingProcessed={isBeingProcessed} />
       }
 
       {isSeeAllModalOpen &&
-        <SeeAllOffice index={index} handleSeeAllModal={handleSeeAllModal} data={data} />
+        <SeeAllSession index={index} handleSeeAllModal={handleSeeAllModal} data={data} />
       }
     </>
   );
 }
 
-export default OfficeCard;
+export default AcademicCard;

@@ -2,23 +2,12 @@ import React, { useState } from 'react';
 import { showToast } from '../../utils/ReactToast';
 import CLoader from '../../utils/CLoader';
 
-function UpdateOffice({ handleEditModal, data, updateHandle, isBeingProcessed }) {
+function UpdateAcademic({ handleEditModal, data, updateHandle, isBeingProcessed }) {
     const [formData, setFormData] = useState(data);
     const formFields = [
-        { name: "OfficeName", label: "Office Name", type: "text", colSpan: 1, required: true },
-        { name: "OfficeShortName", label: "Office Short Name", type: "text", colSpan: 1, required: true },
-        { name: "OfficeAddress", label: "Office Address", type: "text", colSpan: 2, required: true },
-        { name: "OfficeEmail", label: "Office Email", type: "text", colSpan: 1, required: false },
-        { name: "EmailPassword", label: "Email Password", type: "password", colSpan: 1, required: false },
-        { name: "EstdDate", label: "Establish Date", type: "text", colSpan: 1, required: true },
-        { name: "Pan", label: "Pan Number", type: "number", colSpan: 1, required: false },
-        { name: "OfficePhonePrimary", label: "Primary Phone Number", type: "number", colSpan: 1, required: true },
-        { name: "OfficePhoneSecondary", label: "Secondary Phone Number", type: "number", colSpan: 1, required: false },
-        { name: "RegistrationNo", label: "Registration Number", type: "number", colSpan: 2, required: false },
-        { name: "Motto", label: "Motto", type: "text", colSpan: 2, required: false },
-        { name: "WebSite", label: "Website", type: "text", colSpan: 2, required: false },
-        { name: "DevelopedBy", label: "Developed By", type: "text", colSpan: 1, required: false },
-        { name: "DeveloperSite", label: "Developer Site", type: "text", colSpan: 1, required: false },
+        { name: "SessionName", label: "Session Name", type: "text", colSpan: 1, required: true },
+        { name: "SessionStartDateBs", label: "Session Start", type: "text", colSpan: 1, required: true },
+        { name: "SessionEndDateBs", label: "Session End", type: "text", colSpan: 2, required: true },
     ];
 
     const handleChange = (e) => {
@@ -58,7 +47,7 @@ function UpdateOffice({ handleEditModal, data, updateHandle, isBeingProcessed })
                         <div className="mt-4">
                             {/* Heading */}
                             <h1 className="text-2xl font-bold text-center text-gray-800 mb-6">
-                                Update Document Group
+                                Update Academic Session
                             </h1>
 
                             <form className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -79,14 +68,32 @@ function UpdateOffice({ handleEditModal, data, updateHandle, isBeingProcessed })
                                         />
                                     </div>
                                 ))}
-                                {/* Buttons */}
+
+                                {/* Switch Session */}
+                                <div className="md:col-span-2 flex flex-wrap justify-end gap-4">
+                                    {isBeingProcessed ? (<CLoader />) : (
+
+                                        <button
+                                        type="submit"
+                                
+                                        className="px-6 py-3 bg-blue-900 text-white text-sm rounded-lg shadow-lg hover:bg-green-800
+                                        focus:outline-none focus:ring-2 focus:ring-offset-2
+                                        focus:ring-blue-500 transition-all duration-300">
+                                            Switch
+                                        </button>
+                                    )}
+                                </div>
+
+                   {/* Buttons */}
                                 <div className="md:col-span-2 flex flex-wrap justify-end gap-4">
 
                                     {isBeingProcessed ? (<CLoader />) : (
+
+                                        
                                         <button
-                                            type="submit"
+                                            type="submit" 
                                             onClick={submitUpdate}
-                                            className="px-6 py-3 bg-blue-900 text-white text-sm rounded-lg shadow-lg hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-300"
+                                            className="px-6 py-3 bg-blue-900 text-white text-sm rounded-lg shadow-lg hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-300"
                                         >
                                             Update
                                         </button>
@@ -101,4 +108,4 @@ function UpdateOffice({ handleEditModal, data, updateHandle, isBeingProcessed })
     );
 }
 
-export default UpdateOffice;
+export default UpdateAcademic;

@@ -1,41 +1,33 @@
 import React from 'react'
 
-function SeeAllOffice({ handleSeeAllModal, data, index }) {
+function SeeAllAcademic({ handleSeeAllModal, data, index }) {
 
     return (
         <>
-            <div className='fixed inset-0 z-20 bg-black bg-opacity-75 flex justify-center items-center'>
-                <div className='relative sm:max-w-[50%]  max-h-[90vh] flex justify-center items-center p-4 mt-[64px]'>
+            <div className=' fixed inset-0 z-20 bg-black bg-opacity-75 flex justify-center items-center'>
+                <div className='relative sm:max-w-[60%]  max-h-[100vh] flex justify-center items-center p-8 mt-[64px]'>
                     {/* Card container */}
                     <div className={`w-full bg-white border rounded-lg shadow-md p-6 m-4 
                         overflow-y-auto max-h-[80vh] scrollbar-thin scrollbar-thumb-indigo-200 scrollbar-track-transparent`}>
                         <button
-                            className="absolute right-[10%] top-[7%] text-2xl text-indigo-700 font-extrabold hover:text-red-300"
+                            className="absolute right-[16%] top-[12%] text-2xl text-indigo-700 font-extrabold hover:text-red-300"
                             onClick={handleSeeAllModal}>
                             X
                         </button>
                         <h3 className="text-2xl font-semibold text-gray-800">
-                            {(`${index + 1}.   ${data?.OfficeName}`)}
+                            {(`${index + 1}.   ${data?.SessionName}`)}
                         </h3>
                         <div>
-                            <p className="text-gray-600 mt-2"><b>Office Short Name:</b> {data?.OfficeShortName}</p>
-                            <p className="text-gray-600 mt-2"><b>Office Address:</b> {data?.OfficeAddress}</p>
-                            <p className="text-gray-600 mt-2"><b>Establish Date:</b> {data?.EstdDate}</p>
-                            <p className="text-gray-600 mt-2"><b>Pan No:</b> {data?.Pan || "None"}</p>
-                            <p className="text-gray-600 mt-2"><b>Registration No:</b> {data?.RegistrationNo || "None"}</p>
+                            <p className="text-gray-600 mt-2"><b>Session Name:</b> {data?.SessionName}</p>
+                            <p className="text-gray-600 mt-2"><b>Start Date Ad.:</b> {data?.SessionStartDate}</p>
+                            <p className="text-gray-600 mt-2"><b>Start Date Bs.:</b> {data?.SessionStartDateBs}</p>
+                            <p className="text-gray-600 mt-2"><b>End Date Ad.:</b> {data?.SessionEndDate}</p>
+                            <p className="text-gray-600 mt-2"><b>End Date Bs.:</b> {data?.SessionEndDateBs}</p>
                         </div>
-                        <p className="text-gray-600 mt-2"><b>Office Email:</b> {data?.OfficeEmail}</p>
-                        <p className="text-gray-600 mt-2"><b>Phone Number:</b> {data?.OfficePhonePrimary}</p>
+                        <p className="text-gray-600 mt-2"><b>Is Active:</b> {data.IsActive? "Yes" : "No"}</p>
+                        <p className="text-gray-600 mt-2"><b>Is Current Session:</b> {data.IsCurrentSession? "Yes" : "No"}</p>
                         {/* For only viewAll */}
                         <div>
-                            <p className="text-gray-600 mt-2"><b>Secondary Phone Number:</b> {data?.OfficePhoneSecondary || "None"}</p>
-                            <p className="text-gray-600 mt-2"><b>Moto:</b> {data?.Motto || "None"}</p>
-                            <p className="text-gray-600 mt-2"><b>Website:</b> {data?.WebSite || "None"}</p>
-
-                            <div className="text-gray-500 mt-8 text-sm">
-                                <p className=" mt-2"><b>Developed By:</b> {data?.DevelopedBy || "None"}</p>
-                                <p className=" mt-2"><b>Developer Site:</b> {data?.DeveloperSite || "None"}</p>
-                            </div>
                         </div>
 
                         <div className="mt-4">
@@ -63,4 +55,4 @@ function SeeAllOffice({ handleSeeAllModal, data, index }) {
     )
 }
 
-export default SeeAllOffice
+export default SeeAllAcademic
